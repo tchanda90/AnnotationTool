@@ -1,0 +1,26 @@
+altgraph @ file:///home/linux1/recipes/ci/altgraph_1611055153312/work
+Bottleneck @ file:///tmp/build/80754af9/bottleneck_1607575130224/work
+certifi==2021.10.8
+click==7.1.2
+macholib @ file:///home/linux1/recipes/ci/macholib_1611055836792/work
+mkl-fft==1.3.1
+mkl-random @ file:///tmp/build/80754af9/mkl_random_1626186066731/work
+mkl-service==2.4.0
+numexpr @ file:///tmp/build/80754af9/numexpr_1618856529730/work
+numpy @ file:///tmp/build/80754af9/numpy_and_numpy_base_1634095651905/work
+olefile @ file:///Users/ktietz/demo/mc3/conda-bld/olefile_1629805411829/work
+pandas==1.3.4
+Pillow==8.4.0
+pycryptodome @ file:///tmp/build/80754af9/pycryptodome_1613764591558/work
+PyInstaller @ file:///tmp/build/80754af9/pyinstaller_1615968478535/work
+PyQt5==5.15.4
+pyqt5-plugins==5.15.4.2.2
+PyQt5-Qt5==5.15.2
+PyQt5-sip==12.9.0
+pyqt5-tools==5.15.4.3.2
+python-dateutil @ file:///tmp/build/80754af9/python-dateutil_1626374649649/work
+python-dotenv==0.19.2
+pytz==2021.3
+qt5-applications==5.15.2.2.2
+qt5-tools==5.15.2.1.2
+six @ file:///tmp/build/80754af9/six_1623709665295/work
