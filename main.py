@@ -77,14 +77,17 @@ class Annotator(QWidget):
             self.annotations = annotations_df.to_dict(orient='index')
         else:
             self.annotations_file = os.path.join(self.image_folder, "annotations.csv")
-            df = pd.DataFrame({'ruler': [], 'border': [], 'stain': [],
-                               'confidence': [], 'comments': []})
+            df = self.create_empty_df()
             df.to_csv(self.annotations_file, index=False)
 
         self.list_of_images = sorted(self.list_of_images)
         self.num_images = len(self.list_of_images)
 
         self.show_image()
+
+    def create_empty_df(self):
+        return pd.DataFrame({'ruler': [], 'border': [], 'stain': [],
+                             'subtle_ruler': [], 'subtle_border': [], 'subtle_stain': [], 'comments': []})
 
     def show_image(self):
 
@@ -100,20 +103,29 @@ class Annotator(QWidget):
     def show_next_image(self):
 
         ruler = 0
-        stain = 0
         border = 0
-        confidence = self.comboBox_confidence.currentText()
+        stain = 0
+        s_ruler = 0
+        s_border = 0
+        s_stain = 0
+
         comments = self.lineEdit_comments.text()
         if self.checkBox_class_ruler.isChecked():
             ruler = 1
-        if self.checkBox_class_stain.isChecked():
-            stain = 1
         if self.checkBox_class_border.isChecked():
             border = 1
+        if self.checkBox_class_stain.isChecked():
+            stain = 1
+        if self.checkBox_class_subtle_ruler.isChecked():
+            s_ruler = 1
+        if self.checkBox_class_subtle_border.isChecked():
+            s_border = 1
+        if self.checkBox_class_subtle_stain.isChecked():
+            s_stain = 1
 
         img = self.list_of_images[self.current_img_index]
-        self.annotations[img] = {'ruler': ruler, 'border': border, 'stain': stain,
-                                 'confidence': confidence, 'comments': comments}
+        self.annotations[img] = {'ruler': ruler, 'border': border, 'stain': stain, 'subtle_ruler': s_ruler,
+                                 'subtle_border': s_border, 'subtle_stain': s_stain, 'comments': comments}
 
         # If end of images reached. Display a message and exit this function.
         if self.current_img_index + 1 == self.num_images:
@@ -122,11 +134,8 @@ class Annotator(QWidget):
 
         self.current_img_index += 1
 
-        self.checkBox_class_ruler.setChecked(False)
-        self.checkBox_class_stain.setChecked(False)
-        self.checkBox_class_border.setChecked(False)
-        self.comboBox_confidence.setCurrentText('High')
-        self.lineEdit_comments.clear()
+        img = self.list_of_images[self.current_img_index]
+        self.set_checkboxes(img)
 
         self.label_img_save.clear()
 
@@ -143,15 +152,7 @@ class Annotator(QWidget):
 
         img = self.list_of_images[self.current_img_index]
 
-        if self.annotations[img]['ruler']:
-            self.checkBox_class_ruler.setChecked(True)
-        if self.annotations[img]['stain']:
-            self.checkBox_class_stain.setChecked(True)
-        if self.annotations[img]['border']:
-            self.checkBox_class_border.setChecked(True)
-        self.comboBox_confidence.setCurrentText(self.annotations[img]['confidence'])
-        if self.annotations[img]['comments'] != '':
-            self.lineEdit_comments.setText(self.annotations[img]['comments'])
+        self.set_checkboxes(img)
 
         self.label_img_save.clear()
 
@@ -162,6 +163,49 @@ class Annotator(QWidget):
         annotations_df.to_csv(self.annotations_file, index=False)
 
         self.label_img_save.setText('Annotations Saved at ' + self.annotations_file)
+
+    def set_checkboxes(self, img):
+
+        if img not in self.annotations:
+            self.checkBox_class_ruler.setChecked(False)
+            self.checkBox_class_border.setChecked(False)
+            self.checkBox_class_stain.setChecked(False)
+            self.checkBox_class_subtle_ruler.setChecked(False)
+            self.checkBox_class_subtle_border.setChecked(False)
+            self.checkBox_class_subtle_stain.setChecked(False)
+            self.lineEdit_comments.clear()
+            return
+
+        if self.annotations[img]['ruler']:
+            self.checkBox_class_ruler.setChecked(True)
+        else:
+            self.checkBox_class_ruler.setChecked(False)
+        if self.annotations[img]['border']:
+            self.checkBox_class_border.setChecked(True)
+        else:
+            self.checkBox_class_border.setChecked(False)
+        if self.annotations[img]['stain']:
+            self.checkBox_class_stain.setChecked(True)
+        else:
+            self.checkBox_class_stain.setChecked(False)
+
+        if self.annotations[img]['subtle_ruler']:
+            self.checkBox_class_subtle_ruler.setChecked(True)
+        else:
+            self.checkBox_class_subtle_ruler.setChecked(False)
+        if self.annotations[img]['subtle_border']:
+            self.checkBox_class_subtle_border.setChecked(True)
+        else:
+            self.checkBox_class_subtle_border.setChecked(False)
+        if self.annotations[img]['subtle_stain']:
+            self.checkBox_class_subtle_stain.setChecked(True)
+        else:
+            self.checkBox_class_subtle_stain.setChecked(False)
+
+        if self.annotations[img]['comments'] != '':
+            self.lineEdit_comments.setText(self.annotations[img]['comments'])
+        else:
+            self.lineEdit_comments.clear()
 
 
 if __name__ == "__main__":

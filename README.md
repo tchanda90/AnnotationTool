@@ -1,6 +1,6 @@
 # AnnotationTool
 
-#### Annotation Tool for detecting artefacts in the ISIG database images.
+#### Annotation Tool for detecting artifacts in the ISIG database images.
 
 
 # Run

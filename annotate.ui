@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1481</width>
+    <width>1538</width>
     <height>778</height>
    </rect>
   </property>
@@ -38,7 +38,7 @@
   <widget class="QPushButton" name="button_next">
    <property name="geometry">
     <rect>
-     <x>1310</x>
+     <x>1260</x>
      <y>550</y>
      <width>121</width>
      <height>41</height>
@@ -48,14 +48,14 @@
     <string notr="true">font: 12pt &quot;MS Shell Dlg 2&quot;;</string>
    </property>
    <property name="text">
-    <string>Next</string>
+    <string>Confirm</string>
    </property>
   </widget>
   <widget class="QCheckBox" name="checkBox_class_ruler">
    <property name="geometry">
     <rect>
-     <x>1170</x>
-     <y>239</y>
+     <x>1120</x>
+     <y>279</y>
      <width>141</width>
      <height>31</height>
     </rect>
@@ -70,8 +70,8 @@
   <widget class="QCheckBox" name="checkBox_class_border">
    <property name="geometry">
     <rect>
-     <x>1170</x>
-     <y>300</y>
+     <x>1120</x>
+     <y>340</y>
      <width>161</width>
      <height>21</height>
     </rect>
@@ -86,7 +86,7 @@
   <widget class="QLineEdit" name="lineEdit_comments">
    <property name="geometry">
     <rect>
-     <x>1170</x>
+     <x>1120</x>
      <y>480</y>
      <width>261</width>
      <height>41</height>
@@ -105,8 +105,8 @@
   <widget class="QCheckBox" name="checkBox_class_stain">
    <property name="geometry">
     <rect>
-     <x>1170</x>
-     <y>350</y>
+     <x>1120</x>
+     <y>390</y>
      <width>141</width>
      <height>31</height>
     </rect>
@@ -118,57 +118,10 @@
     <string>Stain</string>
    </property>
   </widget>
-  <widget class="QComboBox" name="comboBox_confidence">
-   <property name="geometry">
-    <rect>
-     <x>1170</x>
-     <y>430</y>
-     <width>151</width>
-     <height>22</height>
-    </rect>
-   </property>
-   <property name="editable">
-    <bool>false</bool>
-   </property>
-   <property name="currentText">
-    <string>High</string>
-   </property>
-   <item>
-    <property name="text">
-     <string>High</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>Medium</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>Low</string>
-    </property>
-   </item>
-  </widget>
-  <widget class="QLabel" name="label_confidence">
-   <property name="geometry">
-    <rect>
-     <x>1170</x>
-     <y>400</y>
-     <width>131</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">font: 10pt &quot;MS Shell Dlg 2&quot;;</string>
-   </property>
-   <property name="text">
-    <string>Confidence</string>
-   </property>
-  </widget>
   <widget class="QPushButton" name="button_prev">
    <property name="geometry">
     <rect>
-     <x>1170</x>
+     <x>1120</x>
      <y>550</y>
      <width>121</width>
      <height>41</height>
@@ -184,8 +137,8 @@
   <widget class="QLabel" name="label_img_name">
    <property name="geometry">
     <rect>
-     <x>1170</x>
-     <y>170</y>
+     <x>1120</x>
+     <y>210</y>
      <width>251</width>
      <height>41</height>
     </rect>
@@ -200,7 +153,7 @@
   <widget class="QPushButton" name="button_save">
    <property name="geometry">
     <rect>
-     <x>1170</x>
+     <x>1120</x>
      <y>620</y>
      <width>171</width>
      <height>41</height>
@@ -218,9 +171,9 @@ color: rgb(255, 255, 255)</string>
   <widget class="QLabel" name="label_img_save">
    <property name="geometry">
     <rect>
-     <x>1170</x>
+     <x>1120</x>
      <y>680</y>
-     <width>291</width>
+     <width>341</width>
      <height>101</height>
     </rect>
    </property>
@@ -234,6 +187,54 @@ color: rgb(85, 170, 0)
    </property>
    <property name="wordWrap">
     <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="checkBox_class_subtle_ruler">
+   <property name="geometry">
+    <rect>
+     <x>1320</x>
+     <y>280</y>
+     <width>151</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 14pt &quot;MS Shell Dlg 2&quot;;</string>
+   </property>
+   <property name="text">
+    <string>Subtle Ruler</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="checkBox_class_subtle_border">
+   <property name="geometry">
+    <rect>
+     <x>1320</x>
+     <y>340</y>
+     <width>161</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 14pt &quot;MS Shell Dlg 2&quot;;</string>
+   </property>
+   <property name="text">
+    <string>Subtle Border</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="checkBox_class_subtle_stain">
+   <property name="geometry">
+    <rect>
+     <x>1320</x>
+     <y>390</y>
+     <width>161</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 14pt &quot;MS Shell Dlg 2&quot;;</string>
+   </property>
+   <property name="text">
+    <string>Subtle Stain</string>
    </property>
   </widget>
  </widget>
