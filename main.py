@@ -1,6 +1,10 @@
 import sys
 import os
 import pandas as pd
+import torch
+from torchvision import transforms
+from skimage import io
+from models import ArtfifactDetectorSingle
 from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication, QWidget, QStackedWidget, QFileDialog
 from PyQt5.QtGui import QPixmap
@@ -50,6 +54,16 @@ class Annotator(QWidget):
 
         self.annotations = {}
 
+        self.models = {'ruler': ArtfifactDetectorSingle(), 'border': ArtfifactDetectorSingle(),
+                       'stain': ArtfifactDetectorSingle()}
+        self.models['ruler'].load_state_dict(torch.load(os.path.join('models', 'ruler_detector.pt'), map_location="cpu"))
+        self.models['border'].load_state_dict(torch.load(os.path.join('models', 'border_detector.pt'), map_location="cpu"))
+        self.models['stain'].load_state_dict(torch.load(os.path.join('models', 'stain_detector.pt'), map_location="cpu"))
+
+        self.models['ruler'].eval()
+        self.models['border'].eval()
+        self.models['stain'].eval()
+
         uic.loadUi('annotate.ui', self)
 
         self.button_next.clicked.connect(self.show_next_image)
@@ -89,9 +103,40 @@ class Annotator(QWidget):
         return pd.DataFrame({'ruler': [], 'border': [], 'stain': [],
                              'subtle_ruler': [], 'subtle_border': [], 'subtle_stain': [], 'comments': []})
 
+    def image_loader(self, transform, img_path):
+        image = io.imread(img_path)
+        image = transform(image)
+        image = image.detach().unsqueeze(0)
+        return image
+
+    def predict_image(self, img_path):
+
+        channels, height, width = (3, 300, 300)
+        transform = transforms.Compose([transforms.ToPILImage(),
+                                        transforms.Resize((width, height)),
+                                        transforms.ToTensor()])
+
+        image = self.image_loader(transform, img_path)
+
+        predictions = {'ruler': self.models['ruler'].forward(image).detach().round().numpy()[0][0],
+                       'border': self.models['border'].forward(image).detach().round().numpy()[0][0],
+                       'stain': self.models['stain'].forward(image).detach().round().numpy()[0][0]}
+        return predictions
+
+    def set_predictions(self, predictions):
+        if predictions['ruler'] == 1:
+            self.checkBox_class_ruler.setChecked(True)
+        if predictions['border'] == 1:
+            self.checkBox_class_border.setChecked(True)
+        if predictions['stain'] == 1:
+            self.checkBox_class_stain.setChecked(True)
+
     def show_image(self):
 
         img_path = os.path.join(self.image_folder, self.list_of_images[self.current_img_index])
+
+        predictions = self.predict_image(img_path)
+        self.set_predictions(predictions)
 
         self.label_img_name.setText(self.list_of_images[self.current_img_index])
 
