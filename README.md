@@ -1,12 +1,12 @@
 # AnnotationTool
 
-#### Annotation Tool for detecting artifacts in the ISIG database images.
+#### Annotation Tool for labeling images containing artifacts in the ISIC database.
 
 
 # Run
 ```
+conda env create -f environment.yml
 conda activate annotation_tool
-conda install requirements.txt
 python main.py
 ```
 
